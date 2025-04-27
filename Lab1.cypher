@@ -10,7 +10,7 @@ WITH row WHERE row.title IS NOT NULL AND trim(row.title) <> ''
 
 // Create Paper node
 MERGE (p:Paper {title: row.title})
-SET p.last_m_date = row.m_date,
+SET p.last_mdate = row.mdate,
     p.doi = row.ee,
     p.url = row.url,
     p.abstract = row.abstract
@@ -71,7 +71,7 @@ WHERE row.title IS NOT NULL AND trim(row.title) <> ''
 
 // Create Paper node
 MERGE (p:Paper {title: row.title})
-SET p.last_m_date = row.m_date,
+SET p.last_mdate = row.mdate,
     p.doi = row.ee,
     p.url = row.url,
     p.abstract = row.abstract
@@ -138,8 +138,13 @@ MATCH (p1:Paper)-[:HAS_KEYWORD]->(k:Topic)<-[:HAS_KEYWORD]-(p2:Paper)
 WHERE p1 <> p2
 WITH p1, p2, COUNT(DISTINCT k) AS shared_keywords
 WHERE shared_keywords >= 6
-// Use a simpler condition to ensure direction
-AND id(p1) < id(p2)
+
+  // Ensure only one direction: p1 cites p2 if p1 is earlier
+  AND (
+    p1.last_mdate < p2.last_mdate OR
+    (p1.last_mdate = p2.last_mdate AND id(p1) < id(p2))
+  )
+
 MERGE (p1)-[:CITES]->(p2);
 
 // Question A.3
