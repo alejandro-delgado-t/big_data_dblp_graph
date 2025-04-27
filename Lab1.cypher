@@ -260,13 +260,15 @@ ORDER BY community_size DESC;
 
 // Compute journal impact factor based on recent publications and citations
 // Revised impact factor calculation
+
 // Step 1: Get the maximum year from Time nodes as "current year"
 MATCH (t:Time)
-WITH MAX(t.year) AS current_year
+WITH MAX(toInteger(t.year)) AS current_year
 
 // Step 2: For each journal, find papers published in the previous two years
-MATCH (j:Journal)<-[:PUBLISHED_IN]-(p:Paper)-[:HAS_PUBLICATION_DATE]->(t:Time)
-WHERE t.year >= current_year - 2 AND t.year < current_year
+MATCH (j:Journal)-[:HAS_PUBLICATION_DATE]->(t:Time)
+WHERE toInteger(t.year) >= current_year - 2 AND toInteger(t.year) < current_year
+MATCH (p:Paper)-[:PUBLISHED_IN]->(j)
 WITH j, current_year, COLLECT(p) AS papers, COUNT(p) AS paper_count
 
 // Step 3: Count citations to these papers
