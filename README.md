@@ -3,12 +3,10 @@
 
 ## Overview
 
-This project explores the DBLP dataset using Neo4j. It is divided into three main problem sections (A, B, C), each with its own explanation and Cypher code. A complete version of all problems code combined is available for quick execution.
+This project explores the DBLP dataset using Neo4j. It is divided into three main problem sections (A, B, C), each with its own explanation and Cypher code.
 
 ## Project Structure
 
-- `Lab1.cypher`  
-  Contains the full Cypher code for Problems A, B, and C. You can copy and paste it directly into the Neo4j browser to run everything at once.
 
 - `ne04j_config/`  
   Backup of Neo4j settings (optional).  
@@ -36,5 +34,3 @@ This project explores the DBLP dataset using Neo4j. It is divided into three mai
 3. Ensure your Neo4j instance has enough memory allocated to handle the dataset.
 
 ---
-
-Feel free to run `Lab1.cypher` for a full execution, or explore each problem folder individually.
