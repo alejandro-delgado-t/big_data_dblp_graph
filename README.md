@@ -1,5 +1,6 @@
 # big_data_dblp_graph
 # Neo4j DBLP Project
+![image](https://github.com/user-attachments/assets/1665efe0-5420-4224-8e83-9069c244a908)
 
 ## Overview
 
